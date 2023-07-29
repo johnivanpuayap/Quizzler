@@ -24,8 +24,8 @@ class QuizInterface:
         self.canvas.grid(row=1, column=0, padx=20, pady=20, columnspan=2)
 
         # Score Label
-        label_score = Label(text=f'Score: 0', fg='white', bg=THEME_COLOR, font=('Arial', 12, 'normal'))
-        label_score.grid(row=0, column=1, pady=20, padx=20)
+        self.label_score = Label(text=f'Score: 0', fg='white', bg=THEME_COLOR, font=('Arial', 12, 'normal'))
+        self.label_score.grid(row=0, column=1, pady=20, padx=20)
 
         # Buttons
         image_true = PhotoImage(file='images/true.png')
@@ -41,6 +41,7 @@ class QuizInterface:
 
     def get_question(self):
         self.canvas.config(bg='white')
+        self.label_score.config(text=f'Score: {self.quiz.score}')
         q_text = self.quiz.next_question()
         self.canvas.itemconfig(self.text_question, text=q_text)
 
