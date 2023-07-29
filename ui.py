@@ -29,11 +29,11 @@ class QuizInterface:
 
         # Buttons
         image_true = PhotoImage(file='images/true.png')
-        button_true = Button(image=image_true, highlightthickness=0, command=self.true_pressed)
-        button_true.grid(row=2, column=0)
+        self.button_true = Button(image=image_true, highlightthickness=0, command=self.true_pressed)
+        self.button_true.grid(row=2, column=0)
         image_false = PhotoImage(file='images/false.png')
-        button_false = Button(image=image_false, highlightthickness=0, command=self.false_pressed)
-        button_false.grid(row=2, column=1, pady=20)
+        self.button_false = Button(image=image_false, highlightthickness=0, command=self.false_pressed)
+        self.button_false.grid(row=2, column=1, pady=20)
 
         self.get_question()
 
@@ -41,9 +41,14 @@ class QuizInterface:
 
     def get_question(self):
         self.canvas.config(bg='white')
-        self.label_score.config(text=f'Score: {self.quiz.score}')
-        q_text = self.quiz.next_question()
-        self.canvas.itemconfig(self.text_question, text=q_text)
+        if self.quiz.still_has_questions():
+            self.label_score.config(text=f'Score: {self.quiz.score}')
+            q_text = self.quiz.next_question()
+            self.canvas.itemconfig(self.text_question, text=q_text)
+        else:
+            self.canvas.itemconfig(self.text_question, text=f'Your final score is {self.quiz.score}/10')
+            self.button_false.config(state='disabled')
+            self.button_true.config(state='disabled')
 
     def true_pressed(self):
         self.give_feedback(self.quiz.check_answer('True'))
