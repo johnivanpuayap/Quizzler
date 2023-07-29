@@ -1,7 +1,9 @@
 import requests
+NO_OF_QUESTIONS = 10
+
 
 parameters = {
-    'amount': 10,
+    'amount': NO_OF_QUESTIONS,
     'type': 'boolean'
 }
 
